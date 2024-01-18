@@ -1,0 +1,21 @@
+name: RestPAPI
+description: A rest server for PlaceholderAPI.
+
+depend: [ PlaceholderAPI ]
+
+author: SavageAvocado
+website: https://www.savagedev.net/
+
+main: net.savagedev.restpapi.RestPapiPlugin
+version: ${version}
+api-version: 1.13
+
+commands:
+  restpapi:
+    permission: restpapi.admin
+    description: "Admin command for REST-PAPI."
+    usage: /<command> <reload|gentoken>
+
+permissions:
+  restpapi.admin:
+    default: op

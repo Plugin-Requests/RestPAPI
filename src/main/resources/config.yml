@@ -1,0 +1,11 @@
+# The address the REST API should be hosted at.
+address: 0.0.0.0
+
+# The port the REST API should be hosted at.
+port: 3000
+
+# How many seconds should the HTTP server have to finish handling requests before shutting down?
+shutdown-delay: 3
+
+# A list of tokens that are allowed to access the REST API.
+access-tokens: [ ]
