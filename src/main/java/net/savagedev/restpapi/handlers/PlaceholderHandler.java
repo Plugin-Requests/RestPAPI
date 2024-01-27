@@ -75,7 +75,9 @@ public class PlaceholderHandler implements HttpHandler {
         final boolean unauthorized = !this.plugin.getConfig().getStringList("access-tokens")
                 .contains(accessToken);
         if (unauthorized) {
-            this.plugin.getLogger().info("Unauthorized request from " + exchange.getRemoteAddress().getHostString() + " (" + accessToken + ")");
+            if (this.plugin.getConfig().getBoolean("log-unauthorized")) {
+                this.plugin.getLogger().info("Unauthorized request from " + exchange.getRemoteAddress().getHostString() + " (" + accessToken + ")");
+            }
             exchange.sendResponseHeaders(401, UNAUTHORIZED.length());
             this.writeString(exchange.getResponseBody(), UNAUTHORIZED);
         }

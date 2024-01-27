@@ -9,3 +9,6 @@ shutdown-delay: 3
 
 # A list of tokens that are allowed to access the REST API.
 access-tokens: [ ]
+
+# Should the plugin log unauthorized API requests to the console?
+log-unauthorized: false
