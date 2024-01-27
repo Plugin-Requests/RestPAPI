@@ -15,9 +15,10 @@ import java.util.UUID;
 public class PlaceholderHandler implements HttpHandler {
     private static final String HYPHENATED_UUID_PATTERN = "(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)";
 
+    private static final String METHOD_NOT_ALLOWED = "{\"status\":\"405\",\"message\":\"Method not allowed\"}";
+    private static final String PLAYER_NOT_FOUND = "{\"status\":\"404\",\"message\":\"Player not found\"}";
     private static final String UNAUTHORIZED = "{\"status\":\"401\",\"message\":\"Unauthorized\"}";
     private static final String INVALID_URI = "{\"status\":\"400\",\"message\":\"Invalid URI\"}";
-    private static final String PLAYER_NOT_FOUND = "{\"status\":\"404\",\"message\":\"Player not found\"}";
     private static final String PLACEHOLDER = "{\"status\":\"200\",\"message\":\"%s\"}";
 
     private final RestPapiPlugin plugin;
@@ -28,6 +29,12 @@ public class PlaceholderHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        if (!exchange.getRequestMethod().equals("GET")) {
+            exchange.sendResponseHeaders(405, METHOD_NOT_ALLOWED.length());
+            this.writeString(exchange.getResponseBody(), METHOD_NOT_ALLOWED);
+            return;
+        }
+
         exchange.getResponseHeaders().set("Content-Type", "application/json");
 
         if (this.isUnauthorized(exchange)) {
